@@ -19,10 +19,13 @@ installer in GitHub Releases. The source code stays in the private repos.
 3. Repo **Settings > Pages**: Source "Deploy from a branch", branch `main`, folder `/ (root)`.
    The page will be at `https://tompmk.github.io/local-llm-studio-download/`.
 4. Repo **Releases > Draft a new release**: tag `v0.1.0`, title `Local LLM Studio 0.1.0`, attach
-   `llm-desktop/dist/LocalLLMStudio-Setup.exe` (keep that exact file name), then Publish.
+   `llm-desktop/dist/LocalLLMStudio-Setup.exe` **and** `llm-desktop/dist/SHA256SUMS` (keep those
+   exact file names), then Publish. The app's update check refuses a release without
+   `SHA256SUMS`.
 
 ## New version
 
-Set `version` in `llm-desktop/package.json`, run `pnpm prepare-resources` and `pnpm dist`, then
-create a new release (tag `v<version>`) with the new `LocalLLMStudio-Setup.exe`. The page updates
-by itself.
+Set `version` in `llm-desktop/package.json` (and `__version__` in `llm-backend/app/__init__.py`),
+run `pnpm prepare-resources`, `pnpm dist` and `pnpm checksums`, then create a new release (tag
+`v<version>`) with `LocalLLMStudio-Setup.exe` and `SHA256SUMS`. The page updates by itself, and
+installed apps with update checks switched on will offer it.
